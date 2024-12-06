@@ -22,29 +22,7 @@ async def search_torrent(query):
     ssl_context.check_hostname = False
     ssl_context.verify_mode = ssl.CERT_NONE
 
-    async with aiohttp.ClientSession() as session:
-        for attempt in range(3):  # Retry up to 3 times
-            try:
-                async with session.get(url, ssl=ssl_context) as response:
-                    response_text =  response.text()
-                    soup = BeautifulSoup(response_text, 'html.parser')
-                    torrents = soup.find_all('a', href=True)
-                    results = []
-
-                    for torrent in torrents:
-                        if 'torrent' in torrent['href']:
-                            title = torrent.text.strip()
-                            link = f"https://1337x.to{torrent['href']}"
-                            results.append({'title': title, 'link': link})
-
-                    return results
-            except aiohttp.ClientConnectorError as e:
-                pass
-                # logging.error(f"Connection error on attempt {attempt + 1}: {e}")
-            except Exception as e:
-                logging.error(f"Error on attempt {attempt + 1}: {e}")
-
-    return []
+    
 
 # Function to get magnet link asynchronously
 async def get_torrent1337x(links):
