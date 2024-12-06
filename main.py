@@ -8,7 +8,11 @@ from telegram.ext import Updater, CommandHandler, CallbackContext
 from dotenv import load_dotenv
 import os
 
+# Load environment variables from .env file
+load_dotenv()
 
+# Get the bot token from environment variables
+TOKEN = os.getenv('TOKEN')
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 
